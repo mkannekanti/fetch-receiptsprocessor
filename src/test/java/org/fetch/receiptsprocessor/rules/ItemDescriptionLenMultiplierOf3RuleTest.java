@@ -20,9 +20,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ItemDescriptionLenMultiplierOf3RuleTest {
-    ItemDescriptionLenMultiplierOf3Rule rule = new ItemDescriptionLenMultiplierOf3Rule();
+    final ItemDescriptionLenMultiplierOf3Rule rule = new ItemDescriptionLenMultiplierOf3Rule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

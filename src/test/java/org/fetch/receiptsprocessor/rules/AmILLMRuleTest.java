@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class AmILLMRuleTest {
-    AmILLMRule rule = new AmILLMRule();
+    final AmILLMRule rule = new AmILLMRule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

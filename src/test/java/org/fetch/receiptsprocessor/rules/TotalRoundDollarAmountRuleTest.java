@@ -17,9 +17,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TotalRoundDollarAmountRuleTest {
-    TotalRoundDollarAmountRule rule = new TotalRoundDollarAmountRule();
+    final TotalRoundDollarAmountRule rule = new TotalRoundDollarAmountRule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

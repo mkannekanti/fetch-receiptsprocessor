@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class TimeRangeRuleTest {
     TimeRangeRule rule = new TimeRangeRule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

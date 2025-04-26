@@ -19,9 +19,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ItemPairCountRuleTest {
-    ItemPairCountRule rule = new ItemPairCountRule();
+    final ItemPairCountRule rule = new ItemPairCountRule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

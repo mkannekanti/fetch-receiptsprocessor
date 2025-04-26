@@ -17,9 +17,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RetailerNameLengthRuleTest {
-    RetailerNameLengthRule rule = new RetailerNameLengthRule();
+    final RetailerNameLengthRule rule = new RetailerNameLengthRule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

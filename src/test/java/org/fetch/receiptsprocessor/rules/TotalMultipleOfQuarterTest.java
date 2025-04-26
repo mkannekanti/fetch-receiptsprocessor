@@ -17,9 +17,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TotalMultipleOfQuarterTest {
-    TotalMultipleOfQuarter rule = new TotalMultipleOfQuarter();
+    final TotalMultipleOfQuarter rule = new TotalMultipleOfQuarter();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;

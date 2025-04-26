@@ -19,9 +19,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OddPurchaseDayRuleTest {
-    OddPurchaseDayRule rule = new OddPurchaseDayRule();
+    final OddPurchaseDayRule rule = new OddPurchaseDayRule();
 
-    String id = "dummy";
+    final String id = "dummy";
 
     @Mock
     Receipt receipt;
