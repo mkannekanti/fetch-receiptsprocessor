@@ -21,14 +21,13 @@ public class TotalRoundDollarAmountRule implements Rule {
         /*
          * Total is a round dollar amount with no cents.
          *
-         * e.g., 3 3.00
-         * nit: technically 3.0 and 3. are not valid amount strings.
+         * e.g., 3.00
          */
 
         String total = receipt.getTotal();
 
         // https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
-        boolean isEligible = total.matches("^\\d+(\\.0{2})?$");
+        boolean isEligible = total.matches("^\\d+(\\.0{2})$");
 
         if (isEligible) {
             log.info("[{}]: Eligible since Total({}) is a round dollar amount", id, total);

@@ -31,8 +31,10 @@ public class TimeRangeRule implements Rule {
             String purchaseTime = receipt.getPurchaseTime();
             LocalTime time = LocalTime.parse(purchaseTime, DateTimeFormatter.ofPattern("HH:mm"));
             int hour = time.getHour();
+            int minute = time.getMinute();
 
-            if (hour >= 14 && hour < 17) {
+            // after 2pm and before 4pm
+            if (hour >= 14 && (hour < 16 || (hour == 16 && minute == 0))) {
                 isEligible = true;
             }
 

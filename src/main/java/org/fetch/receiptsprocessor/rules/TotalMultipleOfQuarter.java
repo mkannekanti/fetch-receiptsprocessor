@@ -23,6 +23,8 @@ public class TotalMultipleOfQuarter implements Rule {
     public Boolean isEligible(String id, Receipt receipt) {
         /*
          * Total is multiple of 0.25
+         *
+         * NOTE: 0.0 is multiple of 0.25
          */
         String total = receipt.getTotal();
         boolean isEligible = new BigDecimal(receipt.getTotal())
