@@ -3,8 +3,8 @@
 ## Setup Workspace 
 
 ```shell
-git clone <url>/<package>
-cd <package>
+git clone https://github.com/mkannekanti/fetch-receiptsprocessor.git
+cd fetch-receiptsprocessor
 ```
 
 ## Package Structure
@@ -75,8 +75,9 @@ http://localhost:8080/receipts/{id}/process
 
 ### via Commandline
 
+#### POST /receipts/process api
+
 ```shell
-# process api
 curl -X 'POST' \
   'http://localhost:8080/receipts/process' \
   -H 'accept: application/json' \
@@ -105,8 +106,10 @@ curl -X 'POST' \
   ],
   "total": "35.35"
 }'
+```
 
-# get points api
+#### GET /receipts/{id}/points api
+```shell
 curl -X 'GET' \
   'http://localhost:8080/receipts/fd194773-6383-4b20-8863-8fbfd1a1ffd4/points' \
   -H 'accept: application/json'
