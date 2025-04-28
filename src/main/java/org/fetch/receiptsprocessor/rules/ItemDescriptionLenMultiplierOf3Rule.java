@@ -23,20 +23,28 @@ public class ItemDescriptionLenMultiplierOf3Rule implements Rule {
 
     @Override
     public Long calculatePoints(String id, Receipt receipt) {
-        long points = receipt
-                .getItems()
-                .stream()
-                .peek(item -> log.info("[{}]: Item ({}): Trimmed Length: {}, Price: {}",
-                        id,
-                        item.getShortDescription(),
-                        item.getShortDescription().trim().length(),
-                        item.getPrice()))
-                .filter(item -> item.getShortDescription().trim().length() % 3 == 0)
-                .peek(item -> log.info("[{}]: Item ({}) is eligible", id, item.getShortDescription()))
-                .map(item -> Math.round(Math.ceil(POINT_MULTIPLIER*Double.parseDouble(item.getPrice()))))
-                .reduce(0L, Long::sum);
+        try {
+            long points = receipt
+                    .getItems()
+                    .stream()
+                    .peek(item -> log.info("[{}]: Item ({}): Trimmed Length: {}, Price: {}",
+                            id,
+                            item.getShortDescription(),
+                            item.getShortDescription().trim().length(),
+                            item.getPrice()))
+                    .filter(item -> item.getShortDescription().trim().length() % 3 == 0)
+                    .peek(item -> log.info("[{}]: Item ({}) is eligible", id, item.getShortDescription()))
+                    .map(item -> Math.round(Math.ceil(POINT_MULTIPLIER*Double.parseDouble(item.getPrice()))))
+                    .reduce(0L, Long::sum);
 
-        log.info("[{}]: Earned {} Points based on items trimmed lengths", id, points);
-        return points;
+            log.info("[{}]: Earned {} Points based on items trimmed lengths", id, points);
+            return points;
+        } catch (NumberFormatException e) {
+            log.error("[{}]: Error parsing item price: {}", id, e.getMessage());
+            return 0L;
+        } catch (Exception e) {
+            log.error("[{}]: Error calculating points: {}", id, e.getMessage());
+            return 0L;
+        }
     }
 }

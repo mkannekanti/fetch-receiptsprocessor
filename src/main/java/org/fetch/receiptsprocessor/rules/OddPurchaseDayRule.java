@@ -23,18 +23,22 @@ public class OddPurchaseDayRule implements Rule {
         /*
          * if purchase day is odd
          */
-        LocalDate purchaseDate = receipt.getPurchaseDate();
-        int day = purchaseDate.getDayOfMonth();
+        try {
+            LocalDate purchaseDate = receipt.getPurchaseDate();
+            int day = purchaseDate.getDayOfMonth();
+            boolean isEligible = day % 2 == 1;
 
-        boolean isEligible = day % 2 == 1;
+            if (isEligible) {
+                log.info("[{}]: Eligible since purchase day {} (date: {}) is odd", id, day, purchaseDate);
+            } else {
+                log.info("[{}]: Not Eligible since purchase day {} (date: {}) is not odd", id, day, purchaseDate);
+            }
 
-        if (isEligible) {
-            log.info("[{}]: Eligible since purchase day {} (date: {}) is odd", id, day, purchaseDate);
-        } else {
-            log.info("[{}]: Not Eligible since purchase day {} (date: {}) is not odd", id, day, purchaseDate);
+            return isEligible;
+        } catch (Exception e) {
+            log.error("[{}]: Error checking purchase day eligibility: {}", id, e.getMessage());
+            return false;
         }
-
-        return isEligible;
     }
 
     @Override

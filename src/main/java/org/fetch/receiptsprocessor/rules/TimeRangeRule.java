@@ -46,10 +46,12 @@ public class TimeRangeRule implements Rule {
 
             return isEligible;
         } catch (DateTimeParseException e) {
-            log.error("Failed to parse purchaseData ({}): {}", receipt.getPurchaseTime(), e.getMessage());
+            log.error("[{}]: Failed to parse purchase time ({}): {}", id, receipt.getPurchaseTime(), e.getMessage());
+            return false;
+        } catch (Exception e) {
+            log.error("[{}]: Error checking time range eligibility: {}", id, e.getMessage());
+            return false;
         }
-
-        return false;
     }
 
     @Override

@@ -21,26 +21,34 @@ public class ReceiptsApiDelegateImpl implements ReceiptsApiDelegate {
 
     @Override
     public ResponseEntity<GetReceiptsPoints200Response> getReceiptsPoints(String id) {
-        Optional<Long> points = receiptsProcessorService.getPoints(id);
+        try {
+            Optional<Long> points = receiptsProcessorService.getPoints(id);
 
-        if (points.isPresent()) {
-            GetReceiptsPoints200Response response = new GetReceiptsPoints200Response();
-            response.points(points.get());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (points.isPresent()) {
+                GetReceiptsPoints200Response response = new GetReceiptsPoints200Response();
+                response.points(points.get());
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
     public ResponseEntity<ProcessReceipts200Response> processReceipts(Receipt receipt) {
-        Optional<String> id = receiptsProcessorService.processReceipt(receipt);
+        try {
+            Optional<String> id = receiptsProcessorService.processReceipt(receipt);
 
-        if (id.isPresent()) {
-            ProcessReceipts200Response response = new ProcessReceipts200Response(id.get());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            if (id.isPresent()) {
+                ProcessReceipts200Response response = new ProcessReceipts200Response(id.get());
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

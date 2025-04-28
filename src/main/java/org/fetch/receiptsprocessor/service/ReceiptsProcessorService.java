@@ -33,16 +33,21 @@ public class ReceiptsProcessorService {
      * @return id - ReceiptId
      */
     public Optional<String> processReceipt(Receipt receipt) {
-        String id = String.valueOf(UUID.randomUUID());
-        log.info("[{}]: Receipt: {}", id, receipt.toString());
+        try {
+            String id = String.valueOf(UUID.randomUUID());
+            log.info("[{}]: Receipt: {}", id, receipt.toString());
 
-        Long points = calculatePoints(id, receipt);
+            Long points = calculatePoints(id, receipt);
 
-        log.info("[{}]: Total Points Earned = {}", id, points);
-        receiptPointsMap.put(id, points);
-        receiptMap.put(id, receipt.toString());
+            log.info("[{}]: Total Points Earned = {}", id, points);
+            receiptPointsMap.put(id, points);
+            receiptMap.put(id, receipt.toString());
 
-        return Optional.ofNullable(id);
+            return Optional.ofNullable(id);
+        } catch (Exception e) {
+            log.error("Error in processing receipt {}", e.getMessage());
+            return Optional.empty();
+        }
     }
 
     /**

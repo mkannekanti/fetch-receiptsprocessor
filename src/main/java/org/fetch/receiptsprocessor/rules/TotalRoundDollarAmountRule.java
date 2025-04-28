@@ -23,19 +23,23 @@ public class TotalRoundDollarAmountRule implements Rule {
          *
          * e.g., 3.00
          */
+        try {
+            String total = receipt.getTotal();
 
-        String total = receipt.getTotal();
+            // https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
+            boolean isEligible = total.matches("^\\d+(\\.0{2})$");
 
-        // https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
-        boolean isEligible = total.matches("^\\d+(\\.0{2})$");
+            if (isEligible) {
+                log.info("[{}]: Eligible since Total({}) is a round dollar amount", id, total);
+            } else {
+                log.info("[{}]: Not Eligible since Total({}) is not a round dollar amount", id, total);
+            }
 
-        if (isEligible) {
-            log.info("[{}]: Eligible since Total({}) is a round dollar amount", id, total);
-        } else {
-            log.info("[{}]: Not Eligible since Total({}) is not a round dollar amount", id, total);
+            return isEligible;
+        } catch (Exception e) {
+            log.error("[{}]: Error checking total round dollar amount eligibility: {}", id, e.getMessage());
+            return false;
         }
-
-        return isEligible;
     }
 
     @Override

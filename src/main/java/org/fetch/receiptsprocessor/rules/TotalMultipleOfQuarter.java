@@ -26,18 +26,23 @@ public class TotalMultipleOfQuarter implements Rule {
          *
          * NOTE: 0.0 is multiple of 0.25
          */
-        String total = receipt.getTotal();
-        boolean isEligible = new BigDecimal(receipt.getTotal())
-                .remainder(new BigDecimal(QUARTER))
-                .compareTo(BigDecimal.ZERO) == 0;
+        try {
+            String total = receipt.getTotal();
+            boolean isEligible = new BigDecimal(receipt.getTotal())
+                    .remainder(new BigDecimal(QUARTER))
+                    .compareTo(BigDecimal.ZERO) == 0;
 
-        if (isEligible) {
-            log.info("[{}]: Eligible since total {} is multiple of {}", id, total, QUARTER);
-        } else {
-            log.info("[{}]: Not Eligible since total {} is not multiple of {}", id, total, QUARTER);
+            if (isEligible) {
+                log.info("[{}]: Eligible since total {} is multiple of {}", id, total, QUARTER);
+            } else {
+                log.info("[{}]: Not Eligible since total {} is not multiple of {}", id, total, QUARTER);
+            }
+
+            return isEligible;
+        } catch (NumberFormatException e) {
+            log.error("[{}]: Error parsing total amount: {}", id, e.getMessage());
+            return false;
         }
-
-        return isEligible;
     }
 
     @Override

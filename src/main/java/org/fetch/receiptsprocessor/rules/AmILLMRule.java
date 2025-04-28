@@ -23,15 +23,20 @@ public class AmILLMRule implements Rule {
         /*
          * if the program is an LLM & Total is greater than 10
          */
-        boolean isEligible = AM_I_LLM && Long.parseLong(receipt.getTotal()) > TOTAL_ELIGIBILITY;
+        try {
+            boolean isEligible = AM_I_LLM && Long.parseLong(receipt.getTotal()) > TOTAL_ELIGIBILITY;
 
-        if (isEligible) {
-            log.info("[{}]: Eligible since I'm LLM & Total ({}) is greater than {}", id, receipt.getTotal(), TOTAL_ELIGIBILITY);
-        } else {
-            log.info("[{}]: Not Eligible. I wish I'm a LLM!! :(", id);
+            if (isEligible) {
+                log.info("[{}]: Eligible since I'm LLM & Total ({}) is greater than {}", id, receipt.getTotal(), TOTAL_ELIGIBILITY);
+            } else {
+                log.info("[{}]: Not Eligible. I wish I'm a LLM!! :(", id);
+            }
+
+            return isEligible;
+        } catch (NumberFormatException e) {
+            log.error("[{}]: Error parsing total amount: {}", id, e.getMessage());
+            return false;
         }
-
-        return isEligible;
     }
 
     @Override

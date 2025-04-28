@@ -21,16 +21,16 @@ public class RetailerNameLengthRule implements Rule {
         /*
          * Retailer name must be non-empty.
          */
-        String retailer = receipt.getRetailer();
-        boolean isEligible = (retailer != null && !retailer.isBlank());
+            String retailer = receipt.getRetailer();
+            boolean isEligible = (retailer != null && !retailer.isBlank());
 
-        if (isEligible) {
-            log.info("[{}]: Eligible since retailer name ({}) is not blank", id, retailer);
-        } else {
-            log.info("[{}]: Not Eligible since retailer name is empty or blank", id);
-        }
+            if (isEligible) {
+                log.info("[{}]: Eligible since retailer name ({}) is not blank", id, retailer);
+            } else {
+                log.info("[{}]: Not Eligible since retailer name is empty or blank", id);
+            }
 
-        return isEligible;
+            return isEligible;
     }
 
     @Override
@@ -40,12 +40,12 @@ public class RetailerNameLengthRule implements Rule {
          */
         long alphaNumericCount = receipt
                 .getRetailer()
-                .chars()
-                .filter(Character::isLetterOrDigit)
-                .count();
+                    .chars()
+                    .filter(Character::isLetterOrDigit)
+                    .count();
 
-        long points = POINTS_PER_VALID_CHAR * alphaNumericCount;
-        log.info("[{}]: Earned {} Points based on {} alpha numeric characters", id, points, alphaNumericCount);
-        return points;
+            long points = POINTS_PER_VALID_CHAR * alphaNumericCount;
+            log.info("[{}]: Earned {} Points based on {} alpha numeric characters", id, points, alphaNumericCount);
+            return points;
     }
 }
